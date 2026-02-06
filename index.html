@@ -1,172 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Happy Valentine’s ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Georgia", serif;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background: #111;
+    color: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    body {
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4a2c2a;
-      padding: 40px 20px;
-    }
+  .screen {
+    text-align: center;
+    max-width: 700px;
+    width: 90%;
+  }
 
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      max-width: 800px;
-      width: 100%;
-      padding: 45px;
-      border-radius: 24px;
-      text-align: center;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-    }
+  button {
+    padding: 15px 35px;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: 1px solid white;
+    background: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+  }
 
-    h1 {
-      font-size: 2.8rem;
-      margin-bottom: 10px;
-    }
+  .hidden { display: none; }
 
-    h2 {
-      font-weight: normal;
-      margin-bottom: 30px;
-    }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 30px;
+  }
 
-    .message {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      margin-bottom: 35px;
-      white-space: pre-line;
-    }
-
-    button {
-      background: #e63946;
-      color: white;
-      border: none;
-      padding: 14px 30px;
-      font-size: 1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      margin: 10px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .question {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-top: 25px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 16px;
-    }
-  </style>
+  img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+</style>
 </head>
 
 <body>
 
-<div class="card">
+<!-- SOUND SCREEN -->
+<div class="screen" id="soundScreen">
+  <h1>Before we begin ❤️</h1>
+  <p>Tap below and turn your volume up.</p>
+  <button onclick="startMusic()">▶ Play music</button>
+</div>
 
-  <h1>Happy Valentine’s Day ❤️</h1>
-  <h2>My Love</h2>
+<!-- MAIN CONTENT -->
+<div class="screen hidden" id="mainScreen">
+  <h2>Will you be my Valentine? 💘</h2>
+  <button onclick="showLove()">YES 💖</button>
+  <button onclick="alert('There is no such option 😌❤️')">NO 🙈</button>
 
-  <div class="message">
-From the moment you walked into my life,
-everything felt warmer, brighter, and better.
-
-You’re my favorite person,
-my safest place,
-and my forever Valentine.
-  </div>
-
-  <!-- MUSIC BUTTON -->
-  <button onclick="enableMusic()">Tap to enable sound 🎵</button>
-
-  <!-- SURPRISE BUTTON -->
-  <button onclick="startSurprise()">Click for a surprise 💝</button>
-
-  <!-- QUESTION -->
-  <div id="questionBox" class="hidden">
-    <div class="question">Will you be my Valentine? 💘</div>
-    <button onclick="yesClicked()">YES 💖</button>
-    <button onclick="noClicked()">NO 🙈</button>
-  </div>
-
-  <!-- FINAL CONTENT -->
-  <div id="finalBox" class="hidden">
-    <p style="font-size:1.4rem; color:#e63946; margin-bottom:20px;">
-      I love you. Today, tomorrow, always. 💕
-    </p>
+  <div id="love" class="hidden">
+    <p style="margin-top:25px;">I love you. Today, tomorrow, always. 💕</p>
 
     <div class="gallery">
       <img src="photo1.jpg">
       <img src="photo2.jpg">
     </div>
   </div>
-
 </div>
 
-<!-- AUDIO -->
 <audio id="music" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  let musicEnabled = false;
+function startMusic() {
+  const music = document.getElementById("music");
+  music.volume = 0.8;
 
-  function enableMusic() {
-    const music = document.getElementById("music");
-    music.volume = 0.7;
+  music.play().then(() => {
+    document.getElementById("soundScreen").classList.add("hidden");
+    document.getElementById("mainScreen").classList.remove("hidden");
+  }).catch(() => {
+    alert("Please tap again and increase volume 🔊");
+  });
+}
 
-    music.play()
-      .then(() => {
-        musicEnabled = true;
-        alert("Sound enabled 🎶");
-      })
-      .catch(() => {
-        alert("Please tap again to allow sound 🎵");
-      });
-  }
-
-  function startSurprise() {
-    document.getElementById("questionBox").classList.remove("hidden");
-
-    if (!musicEnabled) {
-      alert("Please tap 'Tap to enable sound 🎵' first");
-    }
-  }
-
-  function yesClicked() {
-    document.getElementById("questionBox").classList.add("hidden");
-    document.getElementById("finalBox").classList.remove("hidden");
-  }
-
-  function noClicked() {
-    alert("There is no such option 😌❤️");
-  }
+function showLove() {
+  document.getElementById("love").classList.remove("hidden");
+}
 </script>
 
 </body>
