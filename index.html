@@ -60,6 +60,7 @@
       font-size: 1rem;
       border-radius: 30px;
       cursor: pointer;
+      margin: 8px;
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 10px 20px rgba(230,57,70,0.3);
     }
@@ -75,13 +76,17 @@
       animation: fadeIn 1s ease;
     }
 
+    .question {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
     .surprise-text {
       font-size: 1.4rem;
       color: #e63946;
       margin-bottom: 30px;
     }
 
-    /* Gallery */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -101,7 +106,6 @@
       transform: scale(1.05);
     }
 
-    /* Floating hearts */
     .heart {
       position: fixed;
       bottom: -20px;
@@ -123,10 +127,10 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="card">
-    <!-- 💌 Customize here -->
     <h1>Happy Valentine’s Day ❤️</h1>
     <h2>My Love</h2>
 
@@ -144,40 +148,58 @@ I’m grateful that I get to walk it with you.
 
     <button onclick="startSurprise()">Click for a surprise 💝</button>
 
-    <div id="surprise" class="hidden">
+    <!-- QUESTION -->
+    <div id="questionBox" class="hidden">
+      <div class="question">Will you be my Valentine? 💘</div>
+      <button onclick="yesClicked()">YES 💖</button>
+      <button onclick="noClicked()">NO 🙈</button>
+    </div>
+
+    <!-- FINAL SURPRISE -->
+    <div id="finalSurprise" class="hidden">
       <div class="surprise-text">
         I love you. Today, tomorrow, always. 💕
       </div>
 
-      <!-- 📸 Photo Gallery -->
       <div class="gallery">
-        <img src="photo1.jpg" alt="Us">
-        <img src="photo2.jpg" alt="Us">
-        <img src="photo3.jpg" alt="Us">
-        <img src="photo4.jpg" alt="Us">
+        <img src="photo1.jpg">
+        <img src="photo2.jpg">
+        <img src="photo3.jpg">
+        <img src="photo4.jpg">
       </div>
     </div>
   </div>
 
   <!-- 🎶 Background Music -->
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic" preload="auto">
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     function startSurprise() {
-      document.getElementById("surprise").style.display = "block";
+      document.getElementById("questionBox").style.display = "block";
 
-      // Play music (after user interaction)
       const music = document.getElementById("bgMusic");
       music.volume = 0.6;
-      music.play();
+
+      music.play().catch(() => {
+        alert("Tap once more to start the music 🎵");
+      });
 
       createHearts();
     }
 
+    function yesClicked() {
+      document.getElementById("questionBox").style.display = "none";
+      document.getElementById("finalSurprise").style.display = "block";
+    }
+
+    function noClicked() {
+      alert("There is no such option 😌❤️");
+    }
+
     function createHearts() {
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 20; i++) {
         const heart = document.createElement("div");
         heart.className = "heart";
         heart.innerHTML = "❤️";
@@ -185,9 +207,7 @@ I’m grateful that I get to walk it with you.
         heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
         document.body.appendChild(heart);
 
-        setTimeout(() => {
-          heart.remove();
-        }, 7000);
+        setTimeout(() => heart.remove(), 7000);
       }
     }
   </script>
