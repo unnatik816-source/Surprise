@@ -1,216 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Happy Valentine’s ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<title>Happy Valentine’s ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Georgia", serif;
-    }
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Georgia", serif;
+  }
 
-    body {
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4a2c2a;
-      overflow-x: hidden;
-      padding: 40px 20px;
-    }
+  body {
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4a2c2a;
+    padding: 40px 20px;
+  }
 
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      max-width: 900px;
-      width: 100%;
-      padding: 50px;
-      border-radius: 24px;
-      text-align: center;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-      animation: fadeIn 1.5s ease;
-    }
+  .card {
+    background: rgba(255,255,255,0.95);
+    max-width: 900px;
+    width: 100%;
+    padding: 50px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
+  h1 { font-size: 3rem; margin-bottom: 10px; }
+  h2 { font-weight: normal; margin-bottom: 30px; }
 
-    h2 {
-      font-weight: normal;
-      margin-bottom: 30px;
-    }
+  .message {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    white-space: pre-line;
+  }
 
-    .message {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      margin-bottom: 40px;
-      white-space: pre-line;
-    }
+  button {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px;
+  }
 
-    button {
-      background: #e63946;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      margin: 8px;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 10px 20px rgba(230,57,70,0.3);
-    }
+  .hidden { display: none; }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 25px rgba(230,57,70,0.4);
-    }
+  .question {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
 
-    .hidden {
-      display: none;
-      margin-top: 30px;
-      animation: fadeIn 1s ease;
-    }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
 
-    .question {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
-
-    .surprise-text {
-      font-size: 1.4rem;
-      color: #e63946;
-      margin-bottom: 30px;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 16px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-      transition: transform 0.3s;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-
-    .heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 24px;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 0; }
-      10% { opacity: 1; }
-      100% { transform: translateY(-110vh); opacity: 0; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+  .gallery img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+</style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h1>Happy Valentine’s Day ❤️</h1>
-    <h2>My Love</h2>
+<div class="card">
+  <h1>Happy Valentine’s Day ❤️</h1>
+  <h2>My Love</h2>
 
-    <div class="message">
+  <div class="message">
 From the moment you walked into my life,
 everything felt warmer, brighter, and better.
 
 You’re my favorite person,
 my safest place,
 and my forever Valentine.
-
-No matter where life takes us,
-I’m grateful that I get to walk it with you.
-    </div>
-
-    <button onclick="startSurprise()">Click for a surprise 💝</button>
-
-    <!-- QUESTION -->
-    <div id="questionBox" class="hidden">
-      <div class="question">Will you be my Valentine? 💘</div>
-      <button onclick="yesClicked()">YES 💖</button>
-      <button onclick="noClicked()">NO 🙈</button>
-    </div>
-
-    <!-- FINAL SURPRISE -->
-    <div id="finalSurprise" class="hidden">
-      <div class="surprise-text">
-        I love you. Today, tomorrow, always. 💕
-      </div>
-
-      <div class="gallery">
-        <img src="photo1.jpg">
-        <img src="photo2.jpg">
-        <img src="photo3.jpg">
-        <img src="photo4.jpg">
-      </div>
-    </div>
   </div>
 
-  <!-- 🎶 Background Music -->
-  <audio id="bgMusic" preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+  <button onclick="startSurprise()">Click for a surprise 💝</button>
 
-  <script>
-    function startSurprise() {
-      document.getElementById("questionBox").style.display = "block";
+  <!-- QUESTION -->
+  <div id="questionBox" class="hidden">
+    <div class="question">Will you be my Valentine? 💘</div>
+    <button onclick="yesClicked()">YES 💖</button>
+    <button onclick="noClicked()">NO 🙈</button>
+  </div>
 
-      const music = document.getElementById("bgMusic");
-      music.volume = 0.6;
+  <!-- FINAL CONTENT -->
+  <div id="finalBox" class="hidden">
+    <p style="font-size:1.4rem; color:#e63946; margin-bottom:25px;">
+      I love you. Today, tomorrow, always. 💕
+    </p>
 
-      music.play().catch(() => {
-        alert("Tap once more to start the music 🎵");
-      });
+    <div class="gallery">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
+    </div>
+  </div>
+</div>
 
-      createHearts();
-    }
+<audio id="music">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-    function yesClicked() {
-      document.getElementById("questionBox").style.display = "none";
-      document.getElementById("finalSurprise").style.display = "block";
-    }
+<script>
+function startSurprise() {
+  // Show question
+  document.getElementById("questionBox").classList.remove("hidden");
 
-    function noClicked() {
-      alert("There is no such option 😌❤️");
-    }
+  // Play music safely
+  const music = document.getElementById("music");
+  music.volume = 0.7;
+  music.play().catch(() => {
+    alert("Tap once more to start the music 🎵");
+  });
+}
 
-    function createHearts() {
-      for (let i = 0; i < 20; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-        document.body.appendChild(heart);
+function yesClicked() {
+  document.getElementById("questionBox").classList.add("hidden");
+  document.getElementById("finalBox").classList.remove("hidden");
+}
 
-        setTimeout(() => heart.remove(), 7000);
-      }
-    }
-  </script>
+function noClicked() {
+  alert("There is no such option 😌❤️");
+}
+</script>
 
 </body>
 </html>
