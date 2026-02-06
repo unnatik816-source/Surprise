@@ -1,34 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Be My Valentine ❤️</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Happy Valentine’s ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Georgia", serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #fdecef, #f6c1cc);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4a2c2a;
+      padding: 30px 15px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.97);
+      max-width: 900px;
+      width: 100%;
+      padding: 40px 30px;
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+      animation: fadeIn 1.4s ease;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-weight: normal;
+      margin-bottom: 25px;
+      font-size: 1.3rem;
+      color: #7a4a4a;
+    }
+
+    .message {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      margin-bottom: 35px;
+      white-space: pre-line;
+    }
+
+    button {
+      background: #e63946;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 18px rgba(230,57,70,0.35);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(230,57,70,0.45);
+    }
+
+    .hidden {
+      display: none;
+      margin-top: 35px;
+      animation: fadeIn 1s ease;
+    }
+
+    .surprise-text {
+      font-size: 1.35rem;
+      color: #e63946;
+      margin-bottom: 25px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.04);
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 22px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 0; }
+      15% { opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
+
 <body>
 
-<audio autoplay loop>
+  <div class="card">
+    <h1>Happy Valentine’s Day ❤️</h1>
+    <h2>My Love</h2>
+
+    <div class="message">
+From the moment you walked into my life,
+everything felt warmer, brighter, and better.
+
+You’re my favorite person,
+my safest place,
+and my forever Valentine.
+
+No matter where life takes us,
+I’m grateful that I get to walk it with you.
+    </div>
+
+    <button onclick="startSurprise()">Click for a surprise 💝</button>
+
+    <div id="surprise" class="hidden">
+      <div class="surprise-text">
+        I love you. Today, tomorrow, always. 💕
+      </div>
+
+      <div class="gallery">
+        <img src="photo1.jpg" alt="Us">
+        <img src="photo2.jpg" alt="Us">
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
-</audio>
+  </audio>
 
-<div class="container">
-    <h1>Hey Love ❤️</h1>
-    <p>You make my world brighter every day ✨</p>
+  <script>
+    function startSurprise() {
+      document.getElementById("surprise").style.display = "block";
 
-    <h2>Will you be my Valentine? 💘</h2>
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.6;
+      music.play();
 
-    <div class="buttons">
-        <button onclick="yesClicked()">YES 💖</button>
-        <button onclick="noClicked()">NO 🙈</button>
-    </div>
+      createHearts();
+    }
 
-    <div id="photos" class="photos hidden">
-        <img src="photo1.jpg">
-        <img src="photo2.jpg">
-        <img src="photo3.jpg">
-    </div>
-</div>
+    function createHearts() {
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+        document.body.appendChild(heart);
 
-<script src="script.js"></script>
+        setTimeout(() => heart.remove(), 7000);
+      }
+    }
+  </script>
+
 </body>
 </html>
+
