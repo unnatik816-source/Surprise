@@ -6,13 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  * {
-    box-sizing: border-box;
-    font-family: Georgia, serif;
-  }
-
   body {
     margin: 0;
+    font-family: Georgia, serif;
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
     min-height: 100vh;
     display: flex;
@@ -22,105 +18,87 @@
     padding: 20px;
   }
 
-  .card {
+  .box {
     background: white;
-    max-width: 800px;
     width: 100%;
-    padding: 40px;
+    max-width: 500px;
+    padding: 35px;
     border-radius: 22px;
     text-align: center;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
   }
 
-  h1 { font-size: 2.4rem; }
-  h2 { font-weight: normal; margin-bottom: 25px; }
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+  }
 
-  .message {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    margin-bottom: 30px;
-    white-space: pre-line;
+  p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 25px;
   }
 
   button {
-    background: #e63946;
-    color: white;
-    border: none;
-    padding: 14px 28px;
+    width: 100%;
+    padding: 15px;
     font-size: 1rem;
     border-radius: 30px;
+    border: none;
+    background: #e63946;
+    color: white;
     cursor: pointer;
-    margin: 10px;
   }
 
-  .hidden { display: none; }
-
-  .question {
-    font-size: 1.4rem;
-    margin-bottom: 18px;
+  .hidden {
+    display: none;
   }
 
   .gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 25px;
+    gap: 12px;
+    margin-top: 20px;
   }
 
-  .gallery img {
+  img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
-    border-radius: 16px;
+    border-radius: 14px;
   }
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="box" id="step1">
+  <h1>Hi ❤️</h1>
+  <p>Please tap the button below and turn your volume up</p>
+  <button onclick="playMusic()">▶ Play music</button>
+</div>
 
-  <!-- STEP 1: MUSIC -->
-  <div id="musicStep">
-    <h1>Before we begin ❤️</h1>
-    <p>Please turn your volume up</p>
-    <button onclick="enableMusic()">▶ Play music</button>
-  </div>
-
-  <!-- STEP 2: MAIN -->
-  <div id="mainStep" class="hidden">
-    <h1>Happy Valentine’s Day ❤️</h1>
-    <h2>My Love</h2>
-
-    <div class="message">
+<div class="box hidden" id="step2">
+  <h1>Happy Valentine’s Day ❤️</h1>
+  <p>
 From the moment you walked into my life,
-everything felt warmer, brighter, and better.
+everything felt warmer and better.
 
-You’re my favorite person,
-my safest place,
-and my forever Valentine.
-    </div>
+Will you be my Valentine? 💘
+  </p>
 
-    <button onclick="askQuestion()">Click for a surprise 💝</button>
+  <button onclick="showPhotos()">YES 💖</button>
+  <button onclick="alert('There is no such option 😌❤️')" style="margin-top:10px;">
+    NO 🙈
+  </button>
 
-    <div id="questionBox" class="hidden">
-      <div class="question">Will you be my Valentine? 💘</div>
-      <button onclick="yesClicked()">YES 💖</button>
-      <button onclick="noClicked()">NO 🙈</button>
-    </div>
-
-    <div id="finalBox" class="hidden">
-      <p style="font-size:1.3rem; color:#e63946; margin-bottom:20px;">
-        I love you. Today, tomorrow, always. 💕
-      </p>
-
-      <div class="gallery">
-        <img src="photo1.jpg">
-        <img src="photo2.jpg">
-      </div>
+  <div id="photos" class="hidden">
+    <p style="margin-top:20px;">I love you. Today, tomorrow, always. 💕</p>
+    <div class="gallery">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
     </div>
   </div>
-
 </div>
 
 <audio id="music" preload="auto" loop>
@@ -128,33 +106,24 @@ and my forever Valentine.
 </audio>
 
 <script>
-  function enableMusic() {
-    const music = document.getElementById("music");
-    music.volume = 0.8;
+function playMusic() {
+  const music = document.getElementById("music");
+  music.volume = 0.9;
 
-    music.play().then(() => {
-      document.getElementById("musicStep").classList.add("hidden");
-      document.getElementById("mainStep").classList.remove("hidden");
-    }).catch(() => {
-      alert("Tap again and increase volume 🔊");
+  music.play()
+    .then(() => {
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("step2").classList.remove("hidden");
+    })
+    .catch(() => {
+      alert("Please tap again and increase volume 🔊");
     });
-  }
+}
 
-  function askQuestion() {
-    document.getElementById("questionBox").classList.remove("hidden");
-  }
-
-  function yesClicked() {
-    document.getElementById("questionBox").classList.add("hidden");
-    document.getElementById("finalBox").classList.remove("hidden");
-  }
-
-  function noClicked() {
-    alert("There is no such option 😌❤️");
-  }
+function showPhotos() {
+  document.getElementById("photos").classList.remove("hidden");
+}
 </script>
 
 </body>
 </html>
-
-
